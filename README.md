@@ -1,11 +1,5 @@
-# Hotel-Room-Booking-System
-Simple Hotel Room Booking System using CodeIgniter
+# Tours & Travels-System
 
-Admin User
-
-Email : email@gmail.com
-
-Password : admin
 
 
 ```Currently under development```
