@@ -40,14 +40,16 @@
             </div>
         <?php } ?>
         
-        <form action="<?php echo base_url(); ?>loginMe" method="post">
+        <form action="<?php echo base_url(); ?>loginMe" id="login" method="post">
           <div class="form-group has-feedback">
             <input type="email" class="form-control" placeholder="Email" name="email" required autofocus />
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            <label id="email-error" class="error" for="email"></label>
           </div>
           <div class="form-group has-feedback">
             <input type="password" class="form-control" placeholder="Password" name="password" required />
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            <label id="password-error" class="error" for="password"></label>
           </div>
           <div class="row">
             <div class="col-xs-8">    
@@ -70,5 +72,7 @@
 
     <script src="<?php echo base_url(); ?>assets/js/jQuery-2.1.4.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+     <script src="<?php echo base_url(); ?>assets/js/jquery.validate.js" type="text/javascript"></script>
   </body>
 </html>
+<script src="<?php echo base_url(); ?>assets/js/login.js" type="text/javascript"></script>
