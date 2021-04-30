@@ -17,8 +17,8 @@ class User_model extends CI_Model
     function userListingCount($searchText = '')
     {
         $this->db->select('BaseTbl.userId, BaseTbl.userEmail, BaseTbl.userName, BaseTbl.userPhone, Role.role');
-        $this->db->from('ldg_users as BaseTbl');
-        $this->db->join('ldg_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
+        $this->db->from('ss_users as BaseTbl');
+        $this->db->join('ss_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
         if(!empty($searchText)) {
             $likeCriteria = "(BaseTbl.userEmail  LIKE '%".$searchText."%'
                             OR  BaseTbl.userName  LIKE '%".$searchText."%'
@@ -42,8 +42,8 @@ class User_model extends CI_Model
     function userListing($searchText = '', $page, $segment)
     {
         $this->db->select('BaseTbl.userId, BaseTbl.userEmail, BaseTbl.userName, BaseTbl.userPhone, Role.role');
-        $this->db->from('ldg_users as BaseTbl');
-        $this->db->join('ldg_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
+        $this->db->from('ss_users as BaseTbl');
+        $this->db->join('ss_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
         if(!empty($searchText)) {
             $likeCriteria = "(BaseTbl.userEmail  LIKE '%".$searchText."%'
                             OR  BaseTbl.userName  LIKE '%".$searchText."%'
@@ -66,7 +66,7 @@ class User_model extends CI_Model
     function getUserRoles()
     {
         $this->db->select('roleId, role');
-        $this->db->from('ldg_roles');
+        $this->db->from('ss_roles');
         $this->db->where('roleId !=', 1);
         $query = $this->db->get();
         
@@ -81,7 +81,7 @@ class User_model extends CI_Model
     function addNewUser($userInfo)
     {
         $this->db->trans_start();
-        $this->db->insert('ldg_users', $userInfo);
+        $this->db->insert('ss_users', $userInfo);
         
         $insert_id = $this->db->insert_id();
         
@@ -98,7 +98,7 @@ class User_model extends CI_Model
     function getUserInfo($userId)
     {
         $this->db->select('userId, userName, userEmail, userPhone, roleId');
-        $this->db->from('ldg_users');
+        $this->db->from('ss_users');
         $this->db->where('isDeleted', 0);
 		$this->db->where('roleId !=', 1);
         $this->db->where('userId', $userId);
@@ -116,7 +116,7 @@ class User_model extends CI_Model
     function editUser($userInfo, $userId)
     {
         $this->db->where('userId', $userId);
-        $this->db->update('ldg_users', $userInfo);
+        $this->db->update('ss_users', $userInfo);
         
         return TRUE;
     }
@@ -131,7 +131,7 @@ class User_model extends CI_Model
     function deleteUser($userId, $userInfo)
     {
         $this->db->where('userId', $userId);
-        $this->db->update('ldg_users', $userInfo);
+        $this->db->update('ss_users', $userInfo);
         
         return $this->db->affected_rows();
     }
@@ -146,7 +146,7 @@ class User_model extends CI_Model
         $this->db->select('userId, userPassword');
         $this->db->where('userId', $userId);        
         $this->db->where('isDeleted', 0);
-        $query = $this->db->get('ldg_users');
+        $query = $this->db->get('ss_users');
         
         $user = $query->result();
 
@@ -170,7 +170,7 @@ class User_model extends CI_Model
     {
         $this->db->where('userId', $userId);
         $this->db->where('isDeleted', 0);
-        $this->db->update('ldg_users', $userInfo);
+        $this->db->update('ss_users', $userInfo);
         
         return $this->db->affected_rows();
     }

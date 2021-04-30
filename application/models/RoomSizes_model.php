@@ -17,7 +17,7 @@ class RoomSizes_model extends CI_Model
     function roomSizeListingCount($searchText = '')
     {
         $this->db->select('BaseTbl.sizeId, BaseTbl.sizeTitle, BaseTbl.sizeDescription');
-        $this->db->from('ldg_room_sizes as BaseTbl');
+        $this->db->from('ss_room_sizes as BaseTbl');
         if(!empty($searchText)) {
             $likeCriteria = "(BaseTbl.sizeDescription  LIKE '%".$searchText."%'
                             OR  BaseTbl.sizeTitle  LIKE '%".$searchText."%')";
@@ -39,7 +39,7 @@ class RoomSizes_model extends CI_Model
     function roomSizeListing($searchText = '', $page, $segment)
     {
         $this->db->select('BaseTbl.sizeId, BaseTbl.sizeTitle, BaseTbl.sizeDescription');
-        $this->db->from('ldg_room_sizes as BaseTbl');
+        $this->db->from('ss_room_sizes as BaseTbl');
         if(!empty($searchText)) {
             $likeCriteria = "(BaseTbl.sizeDescription  LIKE '%".$searchText."%'
                             OR  BaseTbl.sizeTitle  LIKE '%".$searchText."%')";
@@ -61,7 +61,7 @@ class RoomSizes_model extends CI_Model
     function addedNewRoomSize($roomSizeInfo)
     {
         $this->db->trans_start();
-        $this->db->insert('ldg_room_sizes', $roomSizeInfo);
+        $this->db->insert('ss_room_sizes', $roomSizeInfo);
         $insert_id = $this->db->insert_id();
         $this->db->trans_complete();
         
@@ -76,7 +76,7 @@ class RoomSizes_model extends CI_Model
     function getRoomSizeInfo($sizeId)
     {
         $this->db->select('sizeId, sizeTitle, sizeDescription');
-        $this->db->from('ldg_room_sizes');
+        $this->db->from('ss_room_sizes');
         $this->db->where('isDeleted', 0);
         $this->db->where('sizeId', $sizeId);
         $query = $this->db->get();
@@ -93,7 +93,7 @@ class RoomSizes_model extends CI_Model
     function updateOldRoomSize($roomSizeInfo, $sizeId)
     {
         $this->db->where('sizeId', $sizeId);
-        $this->db->update('ldg_room_sizes', $roomSizeInfo);
+        $this->db->update('ss_room_sizes', $roomSizeInfo);
         
         return TRUE;
     }
@@ -106,7 +106,7 @@ class RoomSizes_model extends CI_Model
     function deleteRoomSize($sizeId, $roomSizeInfo)
     {
         $this->db->where('sizeId', $sizeId);
-        $this->db->update('ldg_room_sizes', $roomSizeInfo);
+        $this->db->update('ss_room_sizes', $roomSizeInfo);
         
         return $this->db->affected_rows();
     }

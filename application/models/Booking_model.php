@@ -16,11 +16,11 @@ class Booking_model extends CI_Model
                             C.customerName, C.customerPhone, C.customerEmail,
                             R.roomNumber, R.roomSizeId, R.floorId, RS.sizeTitle, RS.sizeDescription,
                             F.floorName, F.floorCode');
-        $this->db->from('ldg_bookings AS BaseTbl');
-        $this->db->join('ldg_customer AS C', 'BaseTbl.customerId = C.customerId');
-        $this->db->join('ldg_rooms AS R', 'BaseTbl.roomId = R.roomId');
-        $this->db->join('ldg_room_sizes AS RS', 'RS.sizeId = R.roomSizeId', 'left');
-        $this->db->join('ldg_floor AS F', 'F.floorId = R.floorId', 'left');
+        $this->db->from('ss_bookings AS BaseTbl');
+        $this->db->join('ss_customer AS C', 'BaseTbl.customerId = C.customerId');
+        $this->db->join('ss_rooms AS R', 'BaseTbl.roomId = R.roomId');
+        $this->db->join('ss_room_sizes AS RS', 'RS.sizeId = R.roomSizeId', 'left');
+        $this->db->join('ss_floor AS F', 'F.floorId = R.floorId', 'left');
         $this->db->where('BaseTbl.isDeleted', 0);
         if(!empty($searchRoomId)){
             $this->db->where('R.roomId', $searchRoomId);
@@ -49,11 +49,11 @@ class Booking_model extends CI_Model
                             C.customerName, C.customerPhone, C.customerEmail,
                             R.roomNumber, R.roomSizeId, R.floorId, RS.sizeTitle, RS.sizeDescription,
                             F.floorName, F.floorCode');
-        $this->db->from('ldg_bookings AS BaseTbl');
-        $this->db->join('ldg_customer AS C', 'BaseTbl.customerId = C.customerId');
-        $this->db->join('ldg_rooms AS R', 'BaseTbl.roomId = R.roomId');
-        $this->db->join('ldg_room_sizes AS RS', 'RS.sizeId = R.roomSizeId', 'left');
-        $this->db->join('ldg_floor AS F', 'F.floorId = R.floorId', 'left');
+        $this->db->from('ss_bookings AS BaseTbl');
+        $this->db->join('ss_customer AS C', 'BaseTbl.customerId = C.customerId');
+        $this->db->join('ss_rooms AS R', 'BaseTbl.roomId = R.roomId');
+        $this->db->join('ss_room_sizes AS RS', 'RS.sizeId = R.roomSizeId', 'left');
+        $this->db->join('ss_floor AS F', 'F.floorId = R.floorId', 'left');
         $this->db->where('BaseTbl.isDeleted', 0);
         if(!empty($searchRoomId)){
             $this->db->where('R.roomId', $searchRoomId);
@@ -85,7 +85,7 @@ class Booking_model extends CI_Model
     function getCustomersByName($customerName = '')
     {
         $this->db->select('customerId, customerName');
-        $this->db->from('ldg_customer');
+        $this->db->from('ss_customer');
         $this->db->where('isDeleted', 0);
         if(!empty($customerName)) {
             $likeCriteria = "(customerName LIKE '%".$customerName."%')";
@@ -104,7 +104,7 @@ class Booking_model extends CI_Model
     function addedNewBooking($bookingInfo)
     {
         $this->db->trans_start();
-        $this->db->insert('ldg_bookings', $bookingInfo);
+        $this->db->insert('ss_bookings', $bookingInfo);
         $insert_id = $this->db->insert_id();
         $this->db->trans_complete();
         
@@ -114,7 +114,7 @@ class Booking_model extends CI_Model
     function getAvailableRooms($startDate, $endDate, $floorId = '', $roomSizeId = '', $roomId = '')
     {
         $this->db->select('LB.roomId');
-        $this->db->from('ldg_bookings AS LB');
+        $this->db->from('ss_bookings AS LB');
         $this->db->where('LB.isDeleted', 0);
         $this->db->group_start()
 				->group_start()
@@ -157,9 +157,9 @@ class Booking_model extends CI_Model
         $query->free_result();
 
         $this->db->select('LR.roomId, LR.roomNumber, LR.roomSizeId, LR.floorId, LRS.sizeTitle, LRS.sizeDescription');
-        $this->db->from('ldg_rooms AS LR');
-        $this->db->join('ldg_room_sizes AS LRS', 'LRS.sizeId = LR.roomSizeId', 'left');
-        $this->db->join('ldg_floor AS LF', 'LF.floorId = LR.floorId', 'left');
+        $this->db->from('ss_rooms AS LR');
+        $this->db->join('ss_room_sizes AS LRS', 'LRS.sizeId = LR.roomSizeId', 'left');
+        $this->db->join('ss_floor AS LF', 'LF.floorId = LR.floorId', 'left');
         $this->db->where('LR.isDeleted', 0);
         if(!empty($bookedRooms)) {
             $this->db->where_not_in('LR.roomId', $bookedRooms);
@@ -186,8 +186,8 @@ class Booking_model extends CI_Model
     public function getBookingDetails($bookingId)
     {
         $this->db->select('LB.bookingId, LB.customerId, LC.customerName, LB.bookingDtm, LB.floorId, LB.roomSizeId, LB.roomId, LB.bookStartDate, LB.bookEndDate, LB.bookingComments');
-        $this->db->from('ldg_bookings AS LB');
-        $this->db->join('ldg_customer AS LC', 'LB.customerId = LC.customerId', 'left');
+        $this->db->from('ss_bookings AS LB');
+        $this->db->join('ss_customer AS LC', 'LB.customerId = LC.customerId', 'left');
         $this->db->where('LB.isDeleted', 0);
         $this->db->where('LB.bookingId', $bookingId);
 
@@ -204,7 +204,7 @@ class Booking_model extends CI_Model
     function updateOldBooking($bookingInfo, $bookingId)
     {
         $this->db->where('bookingId', $bookingId);
-        $this->db->update('ldg_bookings', $bookingInfo);
+        $this->db->update('ss_bookings', $bookingInfo);
         
         return $this->db->affected_rows();
     }

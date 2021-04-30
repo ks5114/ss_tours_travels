@@ -17,7 +17,7 @@ class Customer_model extends CI_Model
     function customerListingCount($searchText = '')
     {
         $this->db->select('BaseTbl.customerId, BaseTbl.customerName, BaseTbl.customerAddress, BaseTbl.customerPhone, BaseTbl.customerEmail');
-        $this->db->from('ldg_customer as BaseTbl');
+        $this->db->from('ss_customer as BaseTbl');
         if(!empty($searchText)) {
             $likeCriteria = "(BaseTbl.customerName  LIKE '%".$searchText."%'
                             OR  BaseTbl.customerAddress  LIKE '%".$searchText."%'
@@ -41,7 +41,7 @@ class Customer_model extends CI_Model
     function customerListing($searchText = '', $page, $segment)
     {
         $this->db->select('BaseTbl.customerId, BaseTbl.customerName, BaseTbl.customerAddress, BaseTbl.customerPhone, BaseTbl.customerEmail');
-        $this->db->from('ldg_customer as BaseTbl');
+        $this->db->from('ss_customer as BaseTbl');
         if(!empty($searchText)) {
             $likeCriteria = "(BaseTbl.customerName  LIKE '%".$searchText."%'
                             OR  BaseTbl.customerAddress  LIKE '%".$searchText."%'
@@ -64,7 +64,7 @@ class Customer_model extends CI_Model
     function getUserRoles()
     {
         $this->db->select('roleId, role');
-        $this->db->from('ldg_roles');
+        $this->db->from('ss_roles');
         $this->db->where('roleId !=', 1);
         $query = $this->db->get();
         
@@ -79,7 +79,7 @@ class Customer_model extends CI_Model
     function addNewCustomer($customerInfo)
     {
         $this->db->trans_start();
-        $this->db->insert('ldg_customer', $customerInfo);
+        $this->db->insert('ss_customer', $customerInfo);
         $insert_id = $this->db->insert_id();
         $this->db->trans_complete();
         return $insert_id;
@@ -93,7 +93,7 @@ class Customer_model extends CI_Model
     function getCustomerInfo($customerId)
     {
         $this->db->select('customerId, customerName, customerPhone, customerEmail, customerAddress, createdDtm');
-        $this->db->from('ldg_customer');
+        $this->db->from('ss_customer');
         $this->db->where('isDeleted', 0);
         $this->db->where('customerId', $customerId);
         $query = $this->db->get();
@@ -110,7 +110,7 @@ class Customer_model extends CI_Model
     function updateOldCustomer($customerInfo, $customerId)
     {
         $this->db->where('customerId', $customerId);
-        $this->db->update('ldg_customer', $customerInfo);
+        $this->db->update('ss_customer', $customerInfo);
         
         return TRUE;
     }
@@ -123,7 +123,7 @@ class Customer_model extends CI_Model
     function deleteCustomer($customerId, $customerInfo)
     {
         $this->db->where('customerId', $customerId);
-        $this->db->update('ldg_customer', $customerInfo);
+        $this->db->update('ss_customer', $customerInfo);
         
         return $this->db->affected_rows();
     }

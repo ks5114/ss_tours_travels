@@ -17,7 +17,7 @@ class Floors_model extends CI_Model
     function floorsListingCount($searchText = '')
     {
         $this->db->select('BaseTbl.floorId, BaseTbl.floorCode, BaseTbl.floorDescription, BaseTbl.floorName');
-        $this->db->from('ldg_floor as BaseTbl');
+        $this->db->from('ss_floor as BaseTbl');
         if(!empty($searchText)) {
             $likeCriteria = "(BaseTbl.floorCode  LIKE '%".$searchText."%'
                             OR  BaseTbl.floorName  LIKE '%".$searchText."%'
@@ -40,7 +40,7 @@ class Floors_model extends CI_Model
     function floorsListing($searchText = '', $page, $segment)
     {
         $this->db->select('BaseTbl.floorId, BaseTbl.floorCode, BaseTbl.floorDescription, BaseTbl.floorName');
-        $this->db->from('ldg_floor as BaseTbl');
+        $this->db->from('ss_floor as BaseTbl');
         if(!empty($searchText)) {
             $likeCriteria = "(BaseTbl.floorCode  LIKE '%".$searchText."%'
                             OR  BaseTbl.floorName  LIKE '%".$searchText."%'
@@ -63,7 +63,7 @@ class Floors_model extends CI_Model
     function addedNewFloor($floorInfo)
     {
         $this->db->trans_start();
-        $this->db->insert('ldg_floor', $floorInfo);
+        $this->db->insert('ss_floor', $floorInfo);
         $insert_id = $this->db->insert_id();
         $this->db->trans_complete();
         
@@ -78,7 +78,7 @@ class Floors_model extends CI_Model
     function getFloorInfo($floorId)
     {
         $this->db->select('floorId, floorName, floorCode, floorDescription');
-        $this->db->from('ldg_floor');
+        $this->db->from('ss_floor');
         $this->db->where('isDeleted', 0);
         $this->db->where('floorId', $floorId);
         $query = $this->db->get();
@@ -95,7 +95,7 @@ class Floors_model extends CI_Model
     function updateOldFloor($floorInfo, $floorId)
     {
         $this->db->where('floorId', $floorId);
-        $this->db->update('ldg_floor', $floorInfo);
+        $this->db->update('ss_floor', $floorInfo);
         
         return TRUE;
     }
@@ -108,7 +108,7 @@ class Floors_model extends CI_Model
     function deleteFloors($floorsId, $floorsInfo)
     {
         $this->db->where('floorId', $floorsId);
-        $this->db->update('ldg_floor', $floorsInfo);
+        $this->db->update('ss_floor', $floorsInfo);
         
         return $this->db->affected_rows();
     }

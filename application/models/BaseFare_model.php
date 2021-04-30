@@ -17,8 +17,8 @@ class BaseFare_model extends CI_Model
     function baseFareListingCount($searchText, $searchRoomSizeId)
     {
         $this->db->select('BaseTbl.bfId, BaseTbl.baseFareHour, BaseTbl.baseFareDay, BaseTbl.serviceTax, BaseTbl.serviceCharge, BaseTbl.fareTotal, BaseTbl.sizeId, RS.sizeTitle, RS.sizeDescription');
-        $this->db->from('ldg_room_base_fare AS BaseTbl');
-        $this->db->join('ldg_room_sizes AS RS', 'RS.sizeId = BaseTbl.sizeId');
+        $this->db->from('ss_room_base_fare AS BaseTbl');
+        $this->db->join('ss_room_sizes AS RS', 'RS.sizeId = BaseTbl.sizeId');
         $this->db->where('BaseTbl.isDeleted', 0);
         if(!empty($searchText)){
             $this->db->where('RS.sizeDescription LIKE "%'.$searchText.'%"');
@@ -42,8 +42,8 @@ class BaseFare_model extends CI_Model
     function baseFareListing($searchText, $searchRoomSizeId, $page, $segment)
     {
         $this->db->select('BaseTbl.bfId, BaseTbl.baseFareHour, BaseTbl.baseFareDay, BaseTbl.serviceTax, BaseTbl.serviceCharge, BaseTbl.fareTotal, BaseTbl.sizeId, RS.sizeTitle, RS.sizeDescription');
-        $this->db->from('ldg_room_base_fare AS BaseTbl');
-        $this->db->join('ldg_room_sizes AS RS', 'RS.sizeId = BaseTbl.sizeId');
+        $this->db->from('ss_room_base_fare AS BaseTbl');
+        $this->db->join('ss_room_sizes AS RS', 'RS.sizeId = BaseTbl.sizeId');
         $this->db->where('BaseTbl.isDeleted', 0);
         if(!empty($searchText)){
             $this->db->where('RS.sizeDescription LIKE "%'.$searchText.'%"');
@@ -68,10 +68,10 @@ class BaseFare_model extends CI_Model
     {
         $this->db->set("isDeleted", 1);
         $this->db->where("sizeId", $baseFareInfo["sizeId"]);
-        $this->db->update("ldg_room_base_fare");
+        $this->db->update("ss_room_base_fare");
 
         $this->db->trans_start();
-        $this->db->insert('ldg_room_base_fare', $baseFareInfo);
+        $this->db->insert('ss_room_base_fare', $baseFareInfo);
         $insertId = $this->db->insert_id();
         $this->db->trans_complete();
 
@@ -86,7 +86,7 @@ class BaseFare_model extends CI_Model
     function getBaseFareById($bfId)
     {
         $this->db->select("bfId, sizeId, baseFareHour, baseFareDay, serviceTax, serviceCharge");
-        $this->db->from("ldg_room_base_fare");
+        $this->db->from("ss_room_base_fare");
         $this->db->where("bfId", $bfId);
         $query = $this->db->get();
 
@@ -101,7 +101,7 @@ class BaseFare_model extends CI_Model
     function updateOldBaseFare($baseFareInfo, $bfId)
     {
         $this->db->where('bfId', $bfId);
-        $this->db->update('ldg_room_base_fare', $baseFareInfo);
+        $this->db->update('ss_room_base_fare', $baseFareInfo);
         
         return TRUE;
     }
@@ -114,7 +114,7 @@ class BaseFare_model extends CI_Model
     function deleteBaseFare($bfId, $baseFareInfo)
     {
         $this->db->where('bfId', $bfId);
-        $this->db->update('ldg_room_base_fare', $baseFareInfo);
+        $this->db->update('ss_room_base_fare', $baseFareInfo);
         
         return $this->db->affected_rows();
     }

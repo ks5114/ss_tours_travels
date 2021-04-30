@@ -18,9 +18,9 @@ class Rooms_model extends CI_Model
     {
         $this->db->select('BaseTbl.roomId, BaseTbl.roomNumber, BaseTbl.roomSizeId, RS.sizeTitle, RS.sizeDescription,
         					BaseTbl.floorId, FR.floorName, FR.floorCode');
-        $this->db->from('ldg_rooms AS BaseTbl');
-        $this->db->join('ldg_room_sizes AS RS', 'RS.sizeId = BaseTbl.roomSizeId');
-        $this->db->join('ldg_floor AS FR', 'FR.floorId = BaseTbl.floorId');
+        $this->db->from('ss_rooms AS BaseTbl');
+        $this->db->join('ss_room_sizes AS RS', 'RS.sizeId = BaseTbl.roomSizeId');
+        $this->db->join('ss_floor AS FR', 'FR.floorId = BaseTbl.floorId');
         $this->db->where('BaseTbl.isDeleted', 0);
         if(!empty($searchText)){
             $this->db->where('BaseTbl.roomNumber LIKE "%'.$searchText.'%" OR RS.sizeDescription LIKE "%'.$searchText.'%"');
@@ -48,9 +48,9 @@ class Rooms_model extends CI_Model
     {
         $this->db->select('BaseTbl.roomId, BaseTbl.roomNumber, BaseTbl.roomSizeId, RS.sizeTitle, RS.sizeDescription,
         					BaseTbl.floorId, FR.floorName, FR.floorCode');
-        $this->db->from('ldg_rooms AS BaseTbl');
-        $this->db->join('ldg_room_sizes AS RS', 'RS.sizeId = BaseTbl.roomSizeId');
-        $this->db->join('ldg_floor AS FR', 'FR.floorId = BaseTbl.floorId');
+        $this->db->from('ss_rooms AS BaseTbl');
+        $this->db->join('ss_room_sizes AS RS', 'RS.sizeId = BaseTbl.roomSizeId');
+        $this->db->join('ss_floor AS FR', 'FR.floorId = BaseTbl.floorId');
         $this->db->where('BaseTbl.isDeleted', 0);
         if(!empty($searchText)){
             $this->db->where('BaseTbl.roomNumber LIKE "%'.$searchText.'%" OR RS.sizeDescription LIKE "%'.$searchText.'%"');
@@ -75,7 +75,7 @@ class Rooms_model extends CI_Model
     function getRoomSizes()
     {
     	$this->db->select('sizeId, sizeTitle, sizeDescription');
-        $this->db->from('ldg_room_sizes');
+        $this->db->from('ss_room_sizes');
         $this->db->where('isDeleted', 0);
         $query = $this->db->get();
 
@@ -88,7 +88,7 @@ class Rooms_model extends CI_Model
     function getFloors()
     {
     	$this->db->select('floorId, floorName, floorCode');
-        $this->db->from('ldg_floor');
+        $this->db->from('ss_floor');
         $this->db->where('isDeleted', 0);
         $query = $this->db->get();
         
@@ -103,7 +103,7 @@ class Rooms_model extends CI_Model
     function addedNewRoom($roomInfo)
     {
         $this->db->trans_start();
-        $this->db->insert('ldg_rooms', $roomInfo);
+        $this->db->insert('ss_rooms', $roomInfo);
         $insert_id = $this->db->insert_id();
         $this->db->trans_complete();
         
@@ -118,7 +118,7 @@ class Rooms_model extends CI_Model
     function getRoomInfo($roomId)
     {
         $this->db->select('roomId, roomNumber, roomSizeId, floorId');
-        $this->db->from('ldg_rooms');
+        $this->db->from('ss_rooms');
         $this->db->where('isDeleted', 0);
         $this->db->where('roomId', $roomId);
         $query = $this->db->get();
@@ -135,7 +135,7 @@ class Rooms_model extends CI_Model
     function updateOldRoom($roomInfo, $roomId)
     {
         $this->db->where('roomId', $roomId);
-        $this->db->update('ldg_rooms', $roomInfo);
+        $this->db->update('ss_rooms', $roomInfo);
         
         return TRUE;
     }
@@ -148,7 +148,7 @@ class Rooms_model extends CI_Model
     function deleteRoom($roomId, $roomInfo)
     {
         $this->db->where('roomId', $roomId);
-        $this->db->update('ldg_rooms', $roomInfo);
+        $this->db->update('ss_rooms', $roomInfo);
         
         return $this->db->affected_rows();
     }
@@ -159,7 +159,7 @@ class Rooms_model extends CI_Model
     function getRooms()
     {
     	$this->db->select('roomId, roomNumber');
-        $this->db->from('ldg_rooms');
+        $this->db->from('ss_rooms');
         $this->db->where('isDeleted', 0);
         $query = $this->db->get();
 
@@ -174,7 +174,7 @@ class Rooms_model extends CI_Model
     function getRoomsByFT($floorId = 0, $sizeId = 0)
     {
         $this->db->select('roomId, roomNumber');
-        $this->db->from('ldg_rooms');
+        $this->db->from('ss_rooms');
         $this->db->where('isDeleted', 0);
         if($floorId != 0){ $this->db->where('floorId', $floorId); }
         if($sizeId != 0){ $this->db->where('roomSizeId', $sizeId); }

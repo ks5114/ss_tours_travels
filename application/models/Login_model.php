@@ -11,8 +11,8 @@ class Login_model extends CI_Model
     function loginMe($email, $password)
     {
         $this->db->select('BaseTbl.userId, BaseTbl.userEmail, BaseTbl.userPassword, BaseTbl.userName, BaseTbl.roleId, Roles.role');
-        $this->db->from('ldg_users as BaseTbl');
-        $this->db->join('ldg_roles as Roles','Roles.roleId = BaseTbl.roleId');
+        $this->db->from('ss_users as BaseTbl');
+        $this->db->join('ss_roles as Roles','Roles.roleId = BaseTbl.roleId');
         $this->db->where('BaseTbl.userEmail', $email);
         $this->db->where('BaseTbl.isDeleted', 0);
         $query = $this->db->get();
@@ -40,7 +40,7 @@ class Login_model extends CI_Model
         $this->db->select('userId');
         $this->db->where('userEmail', $email);
         $this->db->where('isDeleted', 0);
-        $query = $this->db->get('ldg_users');
+        $query = $this->db->get('ss_users');
 
         if ($query->num_rows() > 0){
             return true;
@@ -57,7 +57,7 @@ class Login_model extends CI_Model
      */
     function resetPasswordUser($data)
     {
-        $result = $this->db->insert('ldg_reset_password', $data);
+        $result = $this->db->insert('ss_reset_password', $data);
 
         if($result) {
             return TRUE;
@@ -74,7 +74,7 @@ class Login_model extends CI_Model
     function getCustomerInfoByEmail($email)
     {
         $this->db->select('userId, userEmail, userName');
-        $this->db->from('ldg_users');
+        $this->db->from('ss_users');
         $this->db->where('isDeleted', 0);
         $this->db->where('userEmail', $email);
         $query = $this->db->get();
@@ -90,7 +90,7 @@ class Login_model extends CI_Model
     function checkActivationDetails($email, $activation_id)
     {
         $this->db->select('id');
-        $this->db->from('ldg_reset_password');
+        $this->db->from('ss_reset_password');
         $this->db->where('email', $email);
         $this->db->where('activation_id', $activation_id);
         $query = $this->db->get();
@@ -102,8 +102,8 @@ class Login_model extends CI_Model
     {
         $this->db->where('userEmail', $email);
         $this->db->where('isDeleted', 0);
-        $this->db->update('ldg_users', array('userPassword'=>getHashedPassword($password)));
-        $this->db->delete('ldg_reset_password', array('email'=>$email));
+        $this->db->update('ss_users', array('userPassword'=>getHashedPassword($password)));
+        $this->db->delete('ss_reset_password', array('email'=>$email));
     }
 }
 

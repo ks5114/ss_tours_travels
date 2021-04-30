@@ -84,8 +84,8 @@ https://templatemo.com/tm-540-lava-landing-page
                     <div class="left-text col-lg-6 col-md-12 col-sm-12 col-xs-12"
                         data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
                         <h1>Simple App that we <em>CREATE</em></h1>
-                        <p>Lava <a href="#">HTML landing page</a> template is provided by <a href="#">TemplateMo</a>.
-                           You can modify and use it for your commercial websites for free of charge. This template is last updated on 29 Oct 2019.</p> 
+                        <p>Phasellus dapibus urna vel lacus accumsan, iaculis eleifend leo auctor. Duis at finibus odio.
+                            Vivamus ut pharetra arcu, in porta metus. Suspendisse blandit pulvinar ligula ut elementum.</p> 
                         <a href="#about" class="main-button-slider">KNOW US BETTER</a>
                     </div>
                 </div>
@@ -311,9 +311,9 @@ https://templatemo.com/tm-540-lava-landing-page
             <div class="row">
                 <div class="col-lg-12">
                     <div class="sub-footer">
-                        <p>Copyright &copy; 2020 Lava Landing Page
+                        <p>Copyright &copy; 2021 SS Tours & Travels
 
-                        | Designed by <a rel="nofollow" href="https://templatemo.com">TemplateMo</a></p>
+                        | Designed by <a rel="nofollow" href="#">Owner</a></p>
                     </div>
                 </div>
             </div>
