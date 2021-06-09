@@ -282,8 +282,7 @@ https://templatemo.com/tm-540-lava-landing-page
                                     </div>
                                     <div class="col-lg-12">
                                         <fieldset>
-                                            <button type="submit" id="form-submit" class="main-button">Send Message
-                                                Now</button>
+                                            <button type="submit" id="form-submit" class="main-button">Register Now</button>
                                         </fieldset>
                                     </div>
                                 </div>
